@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "engineerstech:blocks/bauxite_ore"
+    },
+    "model": "engineerstech:block/bauxite_ore",
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "engineerstech:blocks/bauxite_ore"
+    	},
+    	"model": "engineerstech:block/bauxite_ore",
+    	"uvlock": true
+    }]
+  }
+}

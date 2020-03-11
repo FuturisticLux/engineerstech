@@ -1,0 +1,12 @@
+{
+  "block.engineerstech.chalcopyrite_ore": "mena de calcopyrita",
+  "block.engineerstech.malachite_ore": "mena de malachita",
+  "block.engineerstech.bauxite_ore": "mena de bauxita",
+  "block.engineerstech.cassiterite_ore": "mena de casiterita",
+  "block.engineerstech.fluorite_ore": "mena de fluorita",
+  "block.engineerstech.galena_ore": "mena de galena",
+  "block.engineerstech.monazite_ore": "mena de monazita",
+  "block.engineerstech.rutile_ore": "mena de rutilo",
+  "block.engineerstech.uraninite_ore": "mena de uraninita",
+  "itemGroup.engineerstech":"Engineer's Tech"
+}

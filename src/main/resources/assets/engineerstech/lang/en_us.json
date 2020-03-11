@@ -1,0 +1,12 @@
+{
+  "block.engineerstech.chalcopyrite_ore": "chalcopyrite ore",
+  "block.engineerstech.malachite_ore": "malachite ore",
+  "block.engineerstech.bauxite_ore": "bauxite ore",
+  "block.engineerstech.cassiterite_ore": "cassiterite ore",
+  "block.engineerstech.fluorite_ore": "fluorite ore",
+  "block.engineerstech.galena_ore": "galena ore",
+  "block.engineerstech.monazite_ore": "monazite ore",
+  "block.engineerstech.rutile_ore": "rutile ore",
+  "block.engineerstech.uraninite_ore": "uraninite ore",
+  "itemGroup.engineerstech":"Engineer's Tech"
+}

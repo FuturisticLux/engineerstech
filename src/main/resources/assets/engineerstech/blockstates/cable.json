@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "minecraft:block/glass"
+    },
+    "model": "engineerstech:block/cable",
+    "uvlock": false
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "minecraft:block/glass"
+    	},
+    	"model": "engineerstech:block/cable",
+    	"uvlock": false
+    }]
+  }
+}

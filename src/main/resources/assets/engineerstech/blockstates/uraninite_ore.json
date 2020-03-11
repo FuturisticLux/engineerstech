@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "engineerstech:blocks/uraninite_ore"
+    },
+    "model": "engineerstech:block/uraninite_ore",
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "engineerstech:blocks/uraninite_ore"
+    	},
+    	"model": "engineerstech:block/uraninite_ore",
+    	"uvlock": true
+    }]
+  }
+}
