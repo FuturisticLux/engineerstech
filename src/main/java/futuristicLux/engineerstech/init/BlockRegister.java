@@ -29,11 +29,10 @@ public class BlockRegister {
 		registerBlock(new OreBlock(Block.Properties.create( Material.ROCK ).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE).harvestLevel(2).sound( SoundType.STONE )), "monazite_ore");
 		registerBlock(new OreBlock(Block.Properties.create( Material.ROCK ).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE).harvestLevel(2).sound( SoundType.STONE )), "uraninite_ore");
 		registerBlock(new OreBlock(Block.Properties.create( Material.ROCK ).hardnessAndResistance(3, 3).harvestTool(ToolType.PICKAXE).harvestLevel(2).sound( SoundType.STONE )), "fluorite_ore");
-		registerBlock(new OreBlock(Block.Properties.create( Material.GLASS ).hardnessAndResistance(3, 3).sound( SoundType.GLASS ).variableOpacity()), "cable");
+		registerBlock(new CableBlock(Block.Properties.create( Material.TNT ).hardnessAndResistance(3, 3).sound( SoundType.SCAFFOLDING )), "cable");
     }
 	
-	public static Block registerBlock(Block block, String name)
-    {
+	public static Block registerBlock(Block block, String name){
         BlockItem itemBlock = new BlockItem(block, new Item.Properties().group(EngineersTechTab.instance));
         block.setRegistryName(name);
         itemBlock.setRegistryName(name);

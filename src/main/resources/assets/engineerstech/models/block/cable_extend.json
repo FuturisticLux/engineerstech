@@ -1,0 +1,21 @@
+{
+    "textures": {
+    	"particle": "engineerstech:blocks/cable_low_end",
+        "end": "engineerstech:blocks/cable_low_end",
+        "side": "engineerstech:blocks/cable_low_side"
+    },
+    "elements": [
+    	{
+    		"from": [6,6,16],
+    		"to": [10,10,10],
+    		"faces": {
+                "down":  { "uv": [6,6, 16,16], "texture": "#side" },
+                "up":    { "uv": [6,6, 16,16], "texture": "#side" },
+                "north": { "uv": [6,6, 10,10], "texture": "#end" },
+                "south": { "uv": [6,6, 10,10], "texture": "#end" },
+                "west":  { "uv": [6,6, 16,16], "texture": "#side" },
+                "east":  { "uv": [6,6, 16,16], "texture": "#side" }
+            }
+    	}
+    ]
+}

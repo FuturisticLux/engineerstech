@@ -2,18 +2,43 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "minecraft:block/glass"
+      "all": "engineerstech:blocks/cable_low_end"
     },
     "model": "engineerstech:block/cable",
-    "uvlock": false
+    "uvlock": true
   },
   "variants": {
     "": [{
     	"textures": {
-      		"all": "minecraft:block/glass"
+      		"all": "engineerstech:blocks/cable_low_end"
     	},
     	"model": "engineerstech:block/cable",
-    	"uvlock": false
-    }]
+    	"uvlock": true
+    }],
+    "facing": {
+    	"north": {
+    		"model": "engineerstech:blocks/cable_extend"
+    	},
+    	"east": {
+    		"model": "engineerstech:blocks/cable_extend",
+    		"y": 90
+    	},
+    	"south": {
+    		"model": "engineerstech:blocks/cable_extend",
+    		"y": 180
+    	},
+    	"west": {
+    		"model": "engineerstech:blocks/cable_extend",
+    		"y": 270
+    	},
+    	"up": {
+    		"model": "engineerstech:blocks/cable_extend",
+    		"x": 90
+    	},
+    	"down": {
+    		"model": "engineerstech:blocks/cable_extend",
+    		"x": 270
+    	}
+    }
   }
 }
