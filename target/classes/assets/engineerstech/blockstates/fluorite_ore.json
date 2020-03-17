@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "engineerstech:blocks/fluorite_ore"
+    },
+    "model": "engineerstech:block/fluorite_ore",
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "engineerstech:blocks/fluorite_ore"
+    	},
+    	"model": "engineerstech:block/fluorite_ore",
+    	"uvlock": true
+    }]
+  }
+}

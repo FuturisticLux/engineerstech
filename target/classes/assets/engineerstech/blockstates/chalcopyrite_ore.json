@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "engineerstech:blocks/chalcopyrite_ore"
+    },
+    "model": "engineerstech:block/chalcopyrite_ore",
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "engineerstech:blocks/chalcopyrite_ore"
+    	},
+    	"model": "engineerstech:block/chalcopyrite_ore",
+    	"uvlock": true
+    }]
+  }
+}

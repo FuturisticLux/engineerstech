@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "engineerstech:blocks/rutile_ore"
+    },
+    "model": "engineerstech:block/rutile_ore",
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "engineerstech:blocks/rutile_ore"
+    	},
+    	"model": "engineerstech:block/rutile_ore",
+    	"uvlock": true
+    }]
+  }
+}

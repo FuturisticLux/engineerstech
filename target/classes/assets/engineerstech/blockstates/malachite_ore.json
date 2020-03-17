@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "engineerstech:blocks/malachite_ore"
+    },
+    "model": "engineerstech:block/malachite_ore",
+    "uvlock": true
+  },
+  "variants": {
+    "": [{
+    	"textures": {
+      		"all": "engineerstech:blocks/malachite_ore"
+    	},
+    	"model": "engineerstech:block/malachite_ore",
+    	"uvlock": true
+    }]
+  }
+}

@@ -1,0 +1,10 @@
+[{
+  "modid": "engineerstech",
+  "name": "Engineer's Tech",
+  "description": "A tech mod for 1.15",
+  "version": "0.1.0.0",
+  "mcversion": "1.15.2",
+  ###"logoFile": "assets/logo.png",
+  "updateJSON": "minecraftforge.net/versions.json",
+  "authorList": ["FuturisticLux"]
+}]

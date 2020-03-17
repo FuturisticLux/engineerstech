@@ -7,11 +7,8 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
-import net.minecraft.block.SixWayBlock;
-import net.minecraft.client.settings.BooleanOption;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Util;
@@ -33,7 +30,7 @@ public class CableBlock extends Block implements IWaterLoggable{
 	public static final BooleanProperty WEST = BlockStateProperties.WEST;
 	public static final BooleanProperty UP = BlockStateProperties.UP;
 	public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	//public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final Map<Direction, BooleanProperty> FACING_TO_PROPERTY_MAP = Util.make(Maps.newEnumMap(Direction.class), (p_203421_0_) -> {
 	   p_203421_0_.put(Direction.NORTH, NORTH);
 	   p_203421_0_.put(Direction.EAST, EAST);
@@ -64,11 +61,17 @@ public class CableBlock extends Block implements IWaterLoggable{
 		shapes[3] = VoxelShapes.create(WEST_AABB);
 		shapes[4] = VoxelShapes.create(UP_AABB);
 		shapes[5] = VoxelShapes.create(DOWN_AABB);
+		setDefaultState(stateContainer.getBaseState());
+	}
+	
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		builder.add(BlockStateProperties.FACING);
+		//builder.add(BlockStateProperties.WATERLOGGED);
 	}
 	
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		buildShape(state);
+		//buildShape(state);
 		return shape; 
 	}
 	
@@ -80,12 +83,32 @@ public class CableBlock extends Block implements IWaterLoggable{
 	}
 	
 	private VoxelShape buildShape(BlockState state) {
-		
+		/*
 		for(int i = 0; i < FACING_VALUES.length; ++i) {
 	         if (state.get(FACING_TO_PROPERTY_MAP.get(FACING_VALUES[i]))) {
 	            VoxelShapes.combineAndSimplify(shape, shapes[i],IBooleanFunction.OR);
 	         }
-	      }
+	      }*/
+		
+		if(state.get(NORTH)) {
+			VoxelShapes.combineAndSimplify(shape, shapes[0],IBooleanFunction.OR);
+		}
+		if(state.get(EAST)) {
+			VoxelShapes.combineAndSimplify(shape, shapes[1],IBooleanFunction.OR);
+		}
+		if(state.get(SOUTH)) {
+			VoxelShapes.combineAndSimplify(shape, shapes[2],IBooleanFunction.OR);
+		}
+		if(state.get(WEST)) {
+			VoxelShapes.combineAndSimplify(shape, shapes[3],IBooleanFunction.OR);
+		}
+		if(state.get(UP)) {
+			VoxelShapes.combineAndSimplify(shape, shapes[4],IBooleanFunction.OR);
+		}
+		if(state.get(DOWN)) {
+			VoxelShapes.combineAndSimplify(shape, shapes[5],IBooleanFunction.OR);
+		}
+		
 		
 		return shape;
 	}
@@ -93,17 +116,12 @@ public class CableBlock extends Block implements IWaterLoggable{
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
 			ISelectionContext context) {
-		buildShape(state);
+		//buildShape(state);
 		return shape; 
 	}
 	
 	@Override
 	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-	   return !state.get(WATERLOGGED);
-	}
-	
-	@Override
-	public IFluidState getFluidState(BlockState state) {
-	   return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+	   return true;
 	}
 }
