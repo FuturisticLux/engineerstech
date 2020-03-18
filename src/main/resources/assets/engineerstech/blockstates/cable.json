@@ -1,44 +1,41 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "all": "engineerstech:blocks/cable_low_end"
+	"multipart": [
+	{	"apply": { "model": "engineerstech:block/cable" }},
+    {	"when": {"north": "true" },
+    	"apply": { 
+    		"model": "engineerstech:block/cable_extend",
+    		"uvlock": true
+    	}
     },
-    "model": "engineerstech:block/cable",
-    "uvlock": true
-  },
-  "variants": {
-    "": [{
-    	"textures": {
-      		"all": "engineerstech:blocks/cable_low_end"
-    	},
-    	"model": "engineerstech:block/cable",
-    	"uvlock": true
-    }],
-    "facing": {
-    	"north": {
-    		"model": "engineerstech:block/cable_extend"
-    	},
-    	"east": {
+    {	"when": {"east": "true" },
+    	"apply": { 
     		"model": "engineerstech:block/cable_extend",
-    		"y": 90
-    	},
-    	"south": {
+    		"y": 90,
+    		"uvlock": true
+    	}
+    },{	"when": {"south": "true" },
+    	"apply": { 
     		"model": "engineerstech:block/cable_extend",
-    		"y": 180
-    	},
-    	"west": {
+    		"y": 180,
+    		"uvlock": true
+    	}
+    },{	"when": {"west": "true" },
+    	"apply": { 
     		"model": "engineerstech:block/cable_extend",
-    		"y": 270
-    	},
-    	"up": {
+    		"y": 270,
+    		"uvlock": true
+    	}
+    },{	"when": {"up": "true" },
+    	"apply": { 
     		"model": "engineerstech:block/cable_extend",
-    		"x": 90
-    	},
-    	"down": {
+    		"x": 270,
+    		"uvlock": true
+    	}
+    },{	"when": {"down": "true" },
+    	"apply": { 
     		"model": "engineerstech:block/cable_extend",
-    		"x": 270
+    		"x": 90,
+    		"uvlock": true
     	}
     }
-  }
-}
+]}
