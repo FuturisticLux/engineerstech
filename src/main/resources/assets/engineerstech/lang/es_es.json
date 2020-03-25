@@ -8,5 +8,7 @@
   "block.engineerstech.monazite_ore": "mena de monazita",
   "block.engineerstech.rutile_ore": "mena de rutilo",
   "block.engineerstech.uraninite_ore": "mena de uraninita",
+  "item.engineerstech.fluorite": "fluorita",
+  "item.engineerstech.malachite": "malaquita",
   "itemGroup.engineerstech":"Engineer's Tech"
 }

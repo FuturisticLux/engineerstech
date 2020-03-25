@@ -1,5 +1,6 @@
-"parent": "item/generated",
+{
+	"parent": "item/generated",
     "textures": {
-        "layer0": "engineerstech:items/cable_low_item"
+       	"layer0": "engineerstech:items/cable_low_item"
     }
 }

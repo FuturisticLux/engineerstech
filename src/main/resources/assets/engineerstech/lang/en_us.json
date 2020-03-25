@@ -8,5 +8,7 @@
   "block.engineerstech.monazite_ore": "monazite ore",
   "block.engineerstech.rutile_ore": "rutile ore",
   "block.engineerstech.uraninite_ore": "uraninite ore",
+  "item.engineerstech.fluorite": "fluorite",
+  "item.engineerstech.malachite": "malachite",
   "itemGroup.engineerstech":"Engineer's Tech"
 }

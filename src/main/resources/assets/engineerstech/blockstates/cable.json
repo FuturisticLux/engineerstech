@@ -1,6 +1,6 @@
 {
 	"multipart": [
-	{	"apply": { "model": "engineerstech:block/cable" }},
+	{	"apply": { "model": "engineerstech:block/cable" }, "uvlock": true},
     {	"when": {"north": "true" },
     	"apply": { 
     		"model": "engineerstech:block/cable_extend",

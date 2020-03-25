@@ -2,19 +2,22 @@ package futuristicLux.engineerstech.common.block;
 
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Maps;
 
+import futuristicLux.engineerstech.common.tileEntities.CableTileEntity;
+import futuristicLux.engineerstech.common.util.NetworkCableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,7 +29,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 
-public class CableBlock extends Block {//implements IWaterLoggable{
+public class CableBlock extends Block implements IWaterLoggable{
 
 	//cable direcctions
 	private static final BooleanProperty NORTH = BlockStateProperties.NORTH;
@@ -35,6 +38,7 @@ public class CableBlock extends Block {//implements IWaterLoggable{
 	private static final BooleanProperty WEST = BlockStateProperties.WEST;
 	private static final BooleanProperty UP = BlockStateProperties.UP;
 	private static final BooleanProperty DOWN = BlockStateProperties.DOWN;
+	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private static final Map<Direction, BooleanProperty> FACING_TO_PROPERTY_MAP = Util.make(Maps.newEnumMap(Direction.class), (p_203421_0_) -> {
 	      p_203421_0_.put(Direction.NORTH, NORTH);
 	      p_203421_0_.put(Direction.EAST, EAST);
@@ -46,10 +50,10 @@ public class CableBlock extends Block {//implements IWaterLoggable{
 	
 	//cable shapes
 	public static final AxisAlignedBB BASIC_AABB = new AxisAlignedBB(6D/16D, 6D/16D, 6D/16D, 10D/16D, 10D/16D, 10D/16D);
-	public static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(6D/16D, 6D/16D, 0D/16D, 10D/16D, 10D/16D, 6D/16D);
-	public static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(6D/16D, 6D/16D, 10D, 10D/16D, 10D/16D, 16D/16D);
-	public static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0D, 6D/16D, 6D/16D, 6D/16D, 10D/16D, 10D/16D);
-	public static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(10D/16D, 6D/16D, 6D/16D, 16D/16D, 10D/16D, 10D/16D);
+	public static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(6D/16D, 6D/16D, 0D, 10D/16D, 10D/16D, 6D/16D);
+	public static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(6D/16D, 6D/16D, 10D/16D, 10D/16D, 10D/16D, 16D/16D);
+	public static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(10D/16D, 6D/16D, 6D/16D, 16D/16D, 10D/16D, 10D/16D);
+	public static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0D, 6D/16D, 6D/16D, 6D/16D, 10D/16D, 10D/16D);
 	public static final AxisAlignedBB UP_AABB = new AxisAlignedBB(6D/16D, 10D/16D, 6D/16D, 10D/16D, 16D/16D, 10D/16D);
 	public static final AxisAlignedBB DOWN_AABB = new AxisAlignedBB(6D/16D, 0D, 6D/16D, 10D/16D, 6D/16D, 10D/16D);
 	public static VoxelShape shape;
@@ -65,12 +69,11 @@ public class CableBlock extends Block {//implements IWaterLoggable{
 		shapes[3] = VoxelShapes.create(WEST_AABB);
 		shapes[4] = VoxelShapes.create(UP_AABB);
 		shapes[5] = VoxelShapes.create(DOWN_AABB);
-		setDefaultState(stateContainer.getBaseState().with(NORTH, false).with(EAST, false).with(SOUTH, false).with(WEST, false).with(UP, false).with(DOWN, false));
+		setDefaultState(stateContainer.getBaseState().with(NORTH, false).with(EAST, false).with(SOUTH, false).with(WEST, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false));
 	}
 	
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN);
-		builder.add(BlockStateProperties.WATERLOGGED);
+		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN,WATERLOGGED);
 	}
 	
 	@Override
@@ -87,30 +90,24 @@ public class CableBlock extends Block {//implements IWaterLoggable{
 	}
 	
 	private VoxelShape buildShape(BlockState state) {
-		/*
-		for(int i = 0; i < FACING_VALUES.length; ++i) {
-	         if (state.get(FACING_TO_PROPERTY_MAP.get(FACING_VALUES[i]))) {
-	            VoxelShapes.combineAndSimplify(shape, shapes[i],IBooleanFunction.OR);
-	         }
-	      }*/
 		shape = VoxelShapes.create(BASIC_AABB);
 		if(state.get(NORTH)) {
-			VoxelShapes.combineAndSimplify(shape, shapes[0],IBooleanFunction.OR);
+			shape = VoxelShapes.combineAndSimplify(shape, shapes[0],IBooleanFunction.OR);
 		}
 		if(state.get(EAST)) {
-			VoxelShapes.combineAndSimplify(shape, shapes[1],IBooleanFunction.OR);
+			shape = VoxelShapes.combineAndSimplify(shape, shapes[1],IBooleanFunction.OR);
 		}
 		if(state.get(SOUTH)) {
-			VoxelShapes.combineAndSimplify(shape, shapes[2],IBooleanFunction.OR);
+			shape = VoxelShapes.combineAndSimplify(shape, shapes[2],IBooleanFunction.OR);
 		}
 		if(state.get(WEST)) {
-			VoxelShapes.combineAndSimplify(shape, shapes[3],IBooleanFunction.OR);
+			shape = VoxelShapes.combineAndSimplify(shape, shapes[3],IBooleanFunction.OR);
 		}
 		if(state.get(UP)) {
-			VoxelShapes.combineAndSimplify(shape, shapes[4],IBooleanFunction.OR);
+			shape = VoxelShapes.combineAndSimplify(shape, shapes[4],IBooleanFunction.OR);
 		}
 		if(state.get(DOWN)) {
-			VoxelShapes.combineAndSimplify(shape, shapes[5],IBooleanFunction.OR);
+			shape = VoxelShapes.combineAndSimplify(shape, shapes[5],IBooleanFunction.OR);
 		}
 		
 		
@@ -133,17 +130,16 @@ public class CableBlock extends Block {//implements IWaterLoggable{
 	      BlockState blockstate3 = iblockreader.getBlockState(blockpos4);
 	      BlockState blockstate4 = iblockreader.getBlockState(blockpos5);
 	      BlockState blockstate5 = iblockreader.getBlockState(blockpos6);
-	      return super.getStateForPlacement(context).with(NORTH, !blockstate.isAir(context.getWorld(), blockpos1)).with(EAST, !blockstate1.isAir(context.getWorld(), blockpos2)).with(SOUTH, !blockstate2.isAir(context.getWorld(), blockpos3)).with(WEST, !blockstate3.isAir(context.getWorld(), blockpos4)).with(UP, !blockstate4.isAir(context.getWorld(), blockpos5)).with(DOWN, !blockstate5.isAir(context.getWorld(), blockpos6));
+	      return super.getStateForPlacement(context).with(NORTH, canAttach(blockstate.getBlock())).with(EAST, canAttach(blockstate1.getBlock())).with(SOUTH, canAttach(blockstate2.getBlock())).with(WEST, canAttach(blockstate3.getBlock())).with(UP, canAttach(blockstate4.getBlock())).with(DOWN, canAttach(blockstate5.getBlock())).with(WATERLOGGED, Boolean.valueOf(ifluidstate.getFluid() == Fluids.WATER));
 	}
 	
 	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-	    /*  
+	    
 		if (stateIn.get(WATERLOGGED)) {
 	      worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 	    }
-		*/
-		//buildShape(stateIn);
-	    return stateIn.with(FACING_TO_PROPERTY_MAP.get(facing), !facingState.isAir(worldIn.getWorld(), facingPos));
+		
+	    return stateIn.with(FACING_TO_PROPERTY_MAP.get(facing), canAttach(facingState.getBlock()));
 	}
 	
 	@Override
@@ -153,8 +149,32 @@ public class CableBlock extends Block {//implements IWaterLoggable{
 		return shape; 
 	}
 	
+	public IFluidState getFluidState(BlockState state) {
+	   return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+	}
+	
 	@Override
 	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-	   return true;
+	   return !state.get(WATERLOGGED);
 	}
+	
+	protected boolean canAttach(Block attach) {
+		for(Block block : NetworkCableList.cabling) {
+			if(block.equals(attach)) return true;
+		}
+		return false;
+	}
+	
+	@Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+	
+	@Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new CableTileEntity();
+    }
+	
+	
 }
